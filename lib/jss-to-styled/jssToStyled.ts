@@ -20,6 +20,15 @@ export function jssToStyled({
   jsx: string;
   printOptions?: Record<string, any>;
 }) {
+  if (jss.match(/const.*\=(?!>)/)) {
+    jss = jss.replace(/const.*\=(?!>)/gm, "");
+  }
+  if (jss.match(/makeStyles\([\s\S]*\)/gm)) {
+    jss = (jss.match(/makeStyles(\([\s\S]*\))/gm)[0] || "").replace(
+      "makeStyles",
+      ""
+    );
+  }
   const jssRoot = j(jss);
   const jsxRoot = j(jsx);
 
@@ -101,7 +110,7 @@ export function jssToStyled({
 
   function createStyledComponent(
     styledName: string,
-    jsxName: string,
+    tag: jscodeshift.Identifier | jscodeshift.StringLiteral,
     expression:
       | jscodeshift.ObjectExpression
       | jscodeshift.ArrowFunctionExpression
@@ -109,10 +118,9 @@ export function jssToStyled({
     return j.variableDeclaration("const", [
       j.variableDeclarator(
         j.identifier(styledName),
-        j.callExpression(
-          j.callExpression(j.identifier("styled"), [j.stringLiteral(jsxName)]),
-          [expression]
-        )
+        j.callExpression(j.callExpression(j.identifier("styled"), [tag]), [
+          expression,
+        ])
       ),
     ]);
   }
@@ -123,16 +131,36 @@ export function jssToStyled({
       | jscodeshift.ObjectExpression
       | jscodeshift.ArrowFunctionExpression
   ) {
-    const jsxName =
-      node.openingElement.name.type === "JSXIdentifier"
-        ? node.openingElement.name.name
-        : null;
-    if (jsxName && jsxName.match(/^[a-z]/)) {
-      // jsxName is html tag
-      const styledName = `Styled${capitalize(jsxName)}`;
-      styledResult.program.body.push(
-        createStyledComponent(styledName, jsxName, expression)
-      );
+    if (node.openingElement.name.type === "JSXIdentifier") {
+      const jsxName = node.openingElement.name.name;
+      let styledName;
+      if (jsxName && jsxName.match(/^[a-z]/)) {
+        // jsxName is html tag
+        styledName = `Styled${capitalize(jsxName)}`;
+        styledResult.program.body.push(
+          createStyledComponent(
+            styledName,
+            j.stringLiteral(jsxName),
+            expression
+          )
+        );
+      }
+      if (jsxName && jsxName.match(/^[A-Z]/)) {
+        // React Component
+        styledName = `Styled${jsxName}`;
+        styledResult.program.body.push(
+          createStyledComponent(styledName, j.identifier(jsxName), expression)
+        );
+      }
+      if (styledName) {
+        node.openingElement.name.name = styledName;
+        if (
+          node.closingElement &&
+          node.closingElement.name.type === "JSXIdentifier"
+        ) {
+          node.closingElement.name.name = styledName;
+        }
+      }
     }
   }
 
@@ -150,7 +178,7 @@ export function jssToStyled({
    */
   styles.forEach((style) => {
     jsxRoot.find(j.JSXElement).forEach(({ node }) => {
-      node.openingElement.attributes.forEach((attr) => {
+      node.openingElement.attributes.forEach((attr, attrIndex) => {
         if (attr.type === "JSXAttribute" && attr.name.name === "className") {
           if (attr.value.type === "JSXExpressionContainer") {
             if (attr.value.expression.type === "MemberExpression") {
@@ -161,11 +189,14 @@ export function jssToStyled({
                   node,
                   styleArgs ? styleArgs[style.key] : style.value
                 );
+
+                // delete `className` attribute
+                delete node.openingElement.attributes[attrIndex];
               }
             }
             if (attr.value.expression.type === "CallExpression") {
               const expression = attr.value.expression;
-              expression.arguments.forEach((arg) => {
+              expression.arguments.forEach((arg, argIndex) => {
                 if (
                   arg.type === "MemberExpression" &&
                   isClassKey(arg, style.key)
@@ -175,6 +206,8 @@ export function jssToStyled({
                     node,
                     styleArgs ? styleArgs[style.key] : style.value
                   );
+
+                  delete expression.arguments[argIndex];
                 }
               });
             }
@@ -184,5 +217,8 @@ export function jssToStyled({
     });
   });
 
-  return j(styledResult).toSource(printOptions);
+  return {
+    styledComponents: j(styledResult).toSource(printOptions),
+    jsx: jsxRoot.toSource(printOptions),
+  };
 }
