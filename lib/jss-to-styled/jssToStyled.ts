@@ -127,10 +127,15 @@ export function jssToStyled({
 
   function appendStyledComponent(
     node: jscodeshift.JSXElement,
-    expression:
-      | jscodeshift.ObjectExpression
-      | jscodeshift.ArrowFunctionExpression
+    style: { key: string; value: jscodeshift.ObjectExpression },
+    styleArgs:
+      | undefined
+      | Record<
+          string,
+          jscodeshift.ObjectExpression | jscodeshift.ArrowFunctionExpression
+        >
   ) {
+    const expression = styleArgs ? styleArgs[style.key] : style.value;
     if (node.openingElement.name.type === "JSXIdentifier") {
       const jsxName = node.openingElement.name.name;
       let styledName;
@@ -147,7 +152,11 @@ export function jssToStyled({
       }
       if (jsxName && jsxName.match(/^[A-Z]/)) {
         // React Component
-        styledName = `Styled${jsxName}`;
+        if (jsxName.toLowerCase() === style.key.toLowerCase()) {
+          styledName = `Styled${jsxName}`;
+        } else {
+          styledName = `${jsxName}${capitalize(style.key)}`;
+        }
         styledResult.program.body.push(
           createStyledComponent(styledName, j.identifier(jsxName), expression)
         );
@@ -185,10 +194,7 @@ export function jssToStyled({
               const expression = attr.value.expression;
               if (isClassKey(expression, style.key)) {
                 // className={classes[style.key]}
-                appendStyledComponent(
-                  node,
-                  styleArgs ? styleArgs[style.key] : style.value
-                );
+                appendStyledComponent(node, style, styleArgs);
 
                 // delete `className` attribute
                 delete node.openingElement.attributes[attrIndex];
@@ -202,10 +208,7 @@ export function jssToStyled({
                   isClassKey(arg, style.key)
                 ) {
                   // className={clsx('anything', classes[style.key])}
-                  appendStyledComponent(
-                    node,
-                    styleArgs ? styleArgs[style.key] : style.value
-                  );
+                  appendStyledComponent(node, style, styleArgs);
 
                   delete expression.arguments[argIndex];
                 }

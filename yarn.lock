@@ -3682,6 +3682,11 @@ md5.js@^1.3.4:
     inherits "^2.0.1"
     safe-buffer "^5.1.2"
 
+mdi-material-ui@7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/mdi-material-ui/-/mdi-material-ui-7.0.0.tgz#6f3d3a1462b715399500c9591b5e1256f275c53b"
+  integrity sha512-RmXj5NLCx8YfiFRl0EOG5md19CbyeZZ08SXAckwGmpA97US0tOga2zOOrUrfRmH55hMh1sLXa5KTBpukCwGOxg==
+
 merge-stream@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/merge-stream/-/merge-stream-2.0.0.tgz#52823629a14dd00c9770fb6ad47dc6310f2c1f60"

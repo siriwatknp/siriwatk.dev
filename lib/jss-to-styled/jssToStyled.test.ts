@@ -207,7 +207,7 @@ describe("jssToStyled", () => {
         `,
       })
     ).toMatchObject({
-      styledComponents: `const StyledCart = styled(Cart)({
+      styledComponents: `const CartIframe = styled(Cart)({
   display: 'block',
   width: '100%',
   minHeight: 400,
@@ -412,7 +412,7 @@ const StyledContainer = styled(Container)((
   marginTop: theme.spacing(4),
 }));
 
-const StyledButton = styled(Button)((
+const ButtonCheckout = styled(Button)((
   {
     theme,
   },
@@ -420,7 +420,7 @@ const StyledButton = styled(Button)((
   marginTop: theme.spacing(3),
 }));
 
-const StyledTypography = styled(Typography)((
+const TypographyTaxes = styled(Typography)((
   {
     theme,
   },
@@ -453,7 +453,7 @@ const StyledDivider = styled(Divider)((
                     loading={!cart}
                     footer={
                       <React.Fragment>
-                        <StyledButton
+                        <ButtonCheckout
                           variant="contained"
                           naked
                           component={Link}
@@ -461,10 +461,10 @@ const StyledDivider = styled(Divider)((
                           fullWidth
                           disabled={cartEntries.length === 0}>
                           {'Proceed to checkout'}
-                        </StyledButton>
-                        <StyledTypography display="block" variant="caption" align="center">
+                        </ButtonCheckout>
+                        <TypographyTaxes display="block" variant="caption" align="center">
                           {'Taxes may apply before placing an order.'}
-                        </StyledTypography>
+                        </TypographyTaxes>
                       </React.Fragment>
                     }
                   />
