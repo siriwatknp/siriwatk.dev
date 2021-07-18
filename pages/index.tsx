@@ -1,5 +1,8 @@
+import NextLink from "next/link";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
 export default function Home() {
@@ -10,7 +13,15 @@ export default function Home() {
       display="flex"
       alignItems="center"
       justifyContent="center"
+      position="relative"
     >
+      <Container sx={{ position: "fixed", top: 0, display: "flex", py: 2 }}>
+        <NextLink href="/tool/jss-to-styled">
+          <Button component="a" sx={{ ml: "auto" }}>
+            JSS 👉 styled
+          </Button>
+        </NextLink>
+      </Container>
       <CssBaseline />
       <Typography
         variant="h1"

@@ -24,6 +24,7 @@ import SettingsRounded from "@material-ui/icons/SettingsRounded";
 import CopyAllRounded from "@material-ui/icons/CopyAllRounded";
 
 import { jssToStyled } from "../../lib/jss-to-styled";
+import { lightTheme } from "lib/theme";
 
 const Textarea = styled("textarea")({
   border: "none",
@@ -191,6 +192,7 @@ const JssToStyled = () => {
             flexGrow={1}
             display="flex"
             flexDirection="column"
+            bgcolor="grey.50"
           >
             <Box px={1.5} py={1} bgcolor="grey.100">
               <Typography>Result</Typography>
