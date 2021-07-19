@@ -217,38 +217,53 @@ const JssToStyled = () => {
         />
         <CssBaseline />
         <Container>
-          <Box display="flex" alignItems="center" minHeight="4rem">
-            <Typography component="h1" variant="h6" flexBasis={200}>
+          <Box
+            display="flex"
+            alignItems="center"
+            minHeight={{ xs: "5rem", sm: "4rem" }}
+            flexWrap="wrap"
+          >
+            <Typography
+              component="h1"
+              variant="h6"
+              flexBasis={200}
+              flexShrink={1}
+            >
               JSS 👉 styled
             </Typography>
-            <Button
-              onClick={() => setDialogOpen(true)}
-              startIcon={<InfoRounded />}
-            >
-              How it works?
-            </Button>
-            <Button
-              variant="outlined"
-              startIcon={<TextSnippetRounded />}
-              onClick={() => {
-                setJss(EXAMPLE_1.jss);
-                setJsx(EXAMPLE_1.jsx);
-              }}
-              sx={{ ml: 1.5 }}
-            >
-              Example 1
-            </Button>
-            <Button
-              variant="outlined"
-              startIcon={<TextSnippetRounded />}
-              onClick={() => {
-                setJss(EXAMPLE_2.jss);
-                setJsx(EXAMPLE_2.jsx);
-              }}
-              sx={{ ml: 1.5 }}
-            >
-              Example 2
-            </Button>
+            <div>
+              <Button
+                size="small"
+                onClick={() => setDialogOpen(true)}
+                startIcon={<InfoRounded />}
+              >
+                How it works?
+              </Button>
+              <Button
+                size="small"
+                variant="outlined"
+                startIcon={<TextSnippetRounded />}
+                onClick={() => {
+                  setJss(EXAMPLE_1.jss);
+                  setJsx(EXAMPLE_1.jsx);
+                }}
+                sx={{ ml: 1.5 }}
+              >
+                Example 1
+              </Button>
+              <Button
+                size="small"
+                variant="outlined"
+                startIcon={<TextSnippetRounded />}
+                onClick={() => {
+                  setJss(EXAMPLE_2.jss);
+                  setJsx(EXAMPLE_2.jsx);
+                }}
+                sx={{ ml: 1.5 }}
+              >
+                Example 2
+              </Button>
+            </div>
           </Box>
         </Container>
         <Container>
@@ -259,6 +274,7 @@ const JssToStyled = () => {
             border="1px solid"
             borderColor="grey.300"
             bgcolor="background.paper"
+            flexDirection={{ xs: "column", sm: "row" }}
           >
             <Box
               flexBasis="50%"
@@ -266,7 +282,11 @@ const JssToStyled = () => {
               display="flex"
               flexDirection="column"
             >
-              <Box flexBasis={300} display="flex" flexDirection="column">
+              <Box
+                flexBasis={{ xs: 160, sm: 300 }}
+                display="flex"
+                flexDirection="column"
+              >
                 <Box px={1.5} py={1} bgcolor="grey.100">
                   <Typography>JSS</Typography>
                 </Box>
@@ -306,7 +326,7 @@ const JssToStyled = () => {
             <Box bgcolor="grey.200" width="8px" />
             <Box
               flexBasis="50%"
-              maxWidth="calc(50% - 4px)"
+              maxWidth={{ sm: "calc(50% - 4px)" }}
               flexGrow={1}
               display="flex"
               flexDirection="column"
