@@ -106,41 +106,44 @@ const JssToStyled = () => {
     <AppLayout>
       <Head>
         <title>siriwatk — jss-to-styled for Material-UI</title>
-        <meta name="title" content="siriwatk — jss-to-styled for Material-UI" />
+        <meta
+          name="title"
+          content="siriwatk — jss-to-styled for Material-UI v5"
+        />
         <meta
           name="description"
           content="A tool for helping developer migrate Material-UI project to version 5 with less afford"
         />
 
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://metatags.io/" />
+        <meta
+          property="og:url"
+          content="https://siriwatk.dev/tool/jss-to-styled"
+        />
         <meta
           property="og:title"
-          content="siriwatk — jss-to-styled for Material-UI"
+          content="siriwatk — jss-to-styled for Material-UI v5"
         />
         <meta
           property="og:description"
           content="A tool for helping developer migrate Material-UI project to version 5 with less afford"
         />
-        <meta
-          property="og:image"
-          content="https://metatags.io/assets/meta-tags-16a33a6a8531e519cc0936fbba0ad904e52d35f34a46c97a2c9f6f7dd7d336f2.png"
-        />
+        <meta property="og:image" content="/static/jss-to-styled.jpeg" />
 
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://metatags.io/" />
+        <meta
+          property="twitter:url"
+          content="https://siriwatk.dev/tool/jss-to-styled"
+        />
         <meta
           property="twitter:title"
-          content="siriwatk — jss-to-styled for Material-UI"
+          content="siriwatk — jss-to-styled for Material-UI v5"
         />
         <meta
           property="twitter:description"
           content="A tool for helping developer migrate Material-UI project to version 5 with less afford"
         />
-        <meta
-          property="twitter:image"
-          content="https://metatags.io/assets/meta-tags-16a33a6a8531e519cc0936fbba0ad904e52d35f34a46c97a2c9f6f7dd7d336f2.png"
-        />
+        <meta property="twitter:image" content="/static/jss-to-styled.jpeg" />
       </Head>
       <Box>
         <Dialog
