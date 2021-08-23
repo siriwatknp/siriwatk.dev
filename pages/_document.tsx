@@ -47,10 +47,16 @@ export default class MyDocument extends Document {
           />
           <link
             rel="preload"
-            // optimized for english characters (40kb -> 6kb)
             href="/static/fonts/PlusJakartaSans-ExtraBold-subset.woff2"
             as="font"
             type="font/woff2"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="/static/fonts/PlusJakartaSans-ExtraBold-subset.woff"
+            as="font"
+            type="font/woff"
             crossOrigin="anonymous"
           />
         </Head>
