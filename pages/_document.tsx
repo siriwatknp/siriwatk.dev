@@ -45,6 +45,14 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;700;900&display=swap"
             rel="stylesheet"
           />
+          <link
+            rel="preload"
+            // optimized for english characters (40kb -> 6kb)
+            href="/static/fonts/PlusJakartaSans-ExtraBold-subset.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
         </Head>
         <body>
           <Main />
