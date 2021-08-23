@@ -55,7 +55,7 @@ export default class MyDocument extends Document {
           <style
             // eslint-disable-next-line react/no-danger
             dangerouslySetInnerHTML={{
-              __html: `@font-face{font-family:'PlusJakartaSans-ExtraBold';font-style:normal;font-weight:800;font-display:swap;src:url('PlusJakartaSans-ExtraBold-subset.woff2') format('woff2'),url('PlusJakartaSans-ExtraBold-subset.woff') format('woff');}`,
+              __html: `@font-face{font-family:'PlusJakartaSans-ExtraBold';font-style:normal;font-weight:800;font-display:swap;src:url('/static/fonts/PlusJakartaSans-ExtraBold-subset.woff2') format('woff2'),url('/static/fonts/PlusJakartaSans-ExtraBold-subset.woff') format('woff');}`,
             }}
           />
         </Head>
