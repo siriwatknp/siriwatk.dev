@@ -52,12 +52,11 @@ export default class MyDocument extends Document {
             type="font/woff2"
             crossOrigin="anonymous"
           />
-          <link
-            rel="preload"
-            href="/static/fonts/PlusJakartaSans-ExtraBold-subset.woff"
-            as="font"
-            type="font/woff"
-            crossOrigin="anonymous"
+          <style
+            // eslint-disable-next-line react/no-danger
+            dangerouslySetInnerHTML={{
+              __html: `@font-face{font-family:'PlusJakartaSans-ExtraBold';font-style:normal;font-weight:800;font-display:swap;src:url('PlusJakartaSans-ExtraBold-subset.woff2') format('woff2'),url('PlusJakartaSans-ExtraBold-subset.woff') format('woff');}`,
+            }}
           />
         </Head>
         <body>
