@@ -144,7 +144,7 @@ export default function Home() {
             left: "80vw",
             transform: "translate(-75%)",
             "& > svg": {
-              transition: "0.5s",
+              transition: "transform 0.5s",
               height: "auto",
             },
             [theme.breakpoints.only("xs")]: {
@@ -188,7 +188,7 @@ export default function Home() {
             left: "calc(-50% + 100vw)",
             transform: "translate(-50%)",
             "& > svg": {
-              transition: "0.5s",
+              transition: "transform 0.5s",
               height: "auto",
             },
             [theme.breakpoints.only("xs")]: {
