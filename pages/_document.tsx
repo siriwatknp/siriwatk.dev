@@ -45,19 +45,6 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;700;900&display=swap"
             rel="stylesheet"
           />
-          <link
-            rel="preload"
-            href="/static/fonts/PlusJakartaSans-ExtraBold.woff2"
-            as="font"
-            type="font/woff2"
-            crossOrigin="anonymous"
-          />
-          {/* <style
-            // eslint-disable-next-line react/no-danger
-            dangerouslySetInnerHTML={{
-              __html: `@font-face{font-family:'PlusJakartaSans-ExtraBold';font-style:normal;font-weight:800;font-display:swap;src:url('/static/fonts/PlusJakartaSans-ExtraBold-subset.woff2') format('woff2'),url('/static/fonts/PlusJakartaSans-ExtraBold-subset.woff') format('woff');}`,
-            }}
-          /> */}
         </Head>
         <body>
           <Main />

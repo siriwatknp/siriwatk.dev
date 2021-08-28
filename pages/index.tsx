@@ -35,7 +35,6 @@ export default function Home() {
           fontWeight={900}
           color="primary.main"
           mb={1}
-          sx={{ fontFamily: "'PlusJakartaSans-ExtraBold'" }}
         >
           👋 I'm Siriwat.K
         </Typography>
@@ -44,7 +43,6 @@ export default function Home() {
           color="text.secondary"
           fontSize="clamp(1.5rem, 0.3571rem + 2.8571vw, 2.5rem)"
           fontWeight="bold"
-          sx={{ fontFamily: "'PlusJakartaSans'" }}
         >
           UI Lover @Material-UI
         </Typography>
