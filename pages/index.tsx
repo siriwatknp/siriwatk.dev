@@ -110,6 +110,17 @@ export default function Home() {
       <Head>
         <title>Hello from Siriwat.K</title>
       </Head>
+      <GlobalStyles
+        styles={{
+          "a[href]": {
+            color: "#75FBFB",
+            textDecoration: "none",
+            "&:hover": {
+              textDecoration: "underline",
+            },
+          },
+        }}
+      />
       <CssBaseline />
       <Box
         height="100vh"
@@ -214,6 +225,17 @@ export default function Home() {
         >
           <SvgMountain2 />
         </Box>
+        <Box
+          sx={{
+            width: 3,
+            position: "absolute",
+            height: 100,
+            bottom: 0,
+            left: "50%",
+            background:
+              "linear-gradient(to top, rgba(255,255,255,0), rgba(255,255,255,0.3), rgba(255,255,255,0))",
+          }}
+        />
         <BendingFrame>
           <Glass
             sx={{
@@ -268,30 +290,86 @@ export default function Home() {
             </Box>
           </Glass>
         </BendingFrame>
-        {/* <Container sx={{ position: "fixed", top: 0, display: "flex", py: 2 }}>
-          <NextLink href="/tool/jss-to-styled">
-            <Button component="a" sx={{ ml: "auto" }}>
-              JSS 👉 styled
-            </Button>
-          </NextLink>
-        </Container>
-        <Typography
-          variant="h1"
-          fontSize="clamp(2rem, 0.4286rem + 4.7619vw, 4rem)"
-          fontWeight={900}
-          color="primary.main"
-          mb={1}
+      </Box>
+      <Box
+        sx={{
+          bgcolor: "#253A4A",
+          textAlign: "center",
+          color: "rgba(255,255,255,0.8)",
+        }}
+      >
+        <Box sx={{ p: { xs: 2, sm: 3, md: 4 }, display: "inline-block" }}>
+          <Typography sx={{ maxWidth: 400, textAlign: "center" }}>
+            Welcome to my personal blog. This is where I share stuff from my
+            discovery & experience.
+          </Typography>
+        </Box>
+        <div>
+          <Box
+            sx={{
+              display: "inline-block",
+              width: 3,
+              height: 100,
+              background:
+                "linear-gradient(to top, rgba(255,255,255,0), rgba(255,255,255,0.3), rgba(255,255,255,0))",
+            }}
+          />
+        </div>
+        <Box
+          sx={{
+            p: { xs: 2, sm: 3, md: 4 },
+            mx: "auto",
+            maxWidth: 1200,
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            gap: 4,
+            "& > div": {
+              minWidth: 200,
+            },
+          }}
         >
-          👋 I'm Siriwat.K
-        </Typography>
-        <Typography
-          variant="h4"
-          color="text.secondary"
-          fontSize="clamp(1.5rem, 0.3571rem + 2.8571vw, 2.5rem)"
-          fontWeight="bold"
-        >
-          UI Lover @Material-UI
-        </Typography> */}
+          <Box>
+            <img src="/static/mui-logo.svg" width="36" height="32" />
+            <Typography>
+              Software Engineer at <br />{" "}
+              <a
+                href="https://material-ui.com/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <b>Material-UI</b>
+              </a>
+            </Typography>
+          </Box>
+          <Box>
+            <img src="/static/muitreasury-logo.svg" width="36" height="32" />
+            <Typography>
+              Building UI Collection <br />{" "}
+              <a
+                href="https://mui-treasury.com/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <b>Mui Treasury</b>
+              </a>
+            </Typography>
+          </Box>
+          <Box>
+            <img src="/static/react-logo.svg" width="36" height="32" />
+            <Typography>
+              <a
+                href="https://www.facebook.com/devMasterSomeday/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <b>React online course</b>
+              </a>{" "}
+              in <b>Thai</b> <br /> (work in progress)
+            </Typography>
+          </Box>
+        </Box>
+        <Box sx={{ height: 100 }} />
       </Box>
     </AppLayout>
   );
