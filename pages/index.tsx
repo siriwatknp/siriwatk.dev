@@ -1,14 +1,11 @@
 import * as React from "react";
-import NextLink from "next/link";
 import Head from "next/head";
 import { useSpring, animated } from "@react-spring/web";
 import { useTheme, styled } from "@material-ui/core/styles";
 import GlobalStyles from "@material-ui/core/GlobalStyles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Container from "@material-ui/core/Container";
 import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import AppLayout from "layouts/AppLayout";
 import SvgMountain1 from "components/SvgMountain1";
@@ -105,10 +102,37 @@ const Glass = styled("div")({
 
 export default function Home() {
   const theme = useTheme();
+  const [loaded, setLoaded] = React.useState(false);
+  React.useEffect(() => {
+    setLoaded(true);
+  }, []);
   return (
     <AppLayout>
       <Head>
         <title>Hello from Siriwat.K</title>
+        <meta name="title" content="siriwatk personal blog" />
+        <meta
+          name="description"
+          content="Welcome to my personal blog. This is where I share stuff from my discovery & experience."
+        />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://siriwatk.dev/" />
+        <meta property="og:title" content="siriwatk personal blog" />
+        <meta
+          property="og:description"
+          content="Welcome to my personal blog. This is where I share stuff from my discovery & experience."
+        />
+        <meta property="og:image" content="/static/social-preview.jpeg" />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://siriwatk.dev/" />
+        <meta property="twitter:title" content="siriwatk personal blog" />
+        <meta
+          property="twitter:description"
+          content="Welcome to my personal blog. This is where I share stuff from my discovery & experience."
+        />
+        <meta property="twitter:image" content="/static/social-preview.jpeg" />
       </Head>
       <GlobalStyles
         styles={{
@@ -139,7 +163,8 @@ export default function Home() {
         <Box
           sx={{
             position: "absolute",
-            bottom: 0,
+            bottom: loaded ? 0 : -80,
+            transition: "bottom 0.7s",
             lineHeight: 0,
             left: "80vw",
             transform: "translate(-75%)",
@@ -183,7 +208,8 @@ export default function Home() {
         <Box
           sx={{
             position: "absolute",
-            bottom: 0,
+            bottom: loaded ? 0 : -120,
+            transition: "bottom 0.7s",
             lineHeight: 0,
             left: "calc(-50% + 100vw)",
             transform: "translate(-50%)",
@@ -325,7 +351,12 @@ export default function Home() {
             justifyContent: "center",
             gap: 4,
             "& > div": {
+              flexGrow: 1,
               minWidth: 200,
+              maxWidth: 240,
+              "& img": {
+                mb: 1,
+              },
             },
           }}
         >
@@ -359,13 +390,42 @@ export default function Home() {
             <img src="/static/react-logo.svg" width="36" height="32" />
             <Typography>
               <a
-                href="https://www.facebook.com/devMasterSomeday/"
+                href="https://github.com/React-in-Thai/react-foundation"
                 rel="noopener noreferrer"
                 target="_blank"
               >
                 <b>React online course</b>
               </a>{" "}
               in <b>Thai</b> <br /> (work in progress)
+            </Typography>
+          </Box>
+          <Box>
+            <img src="/static/facebook-logo.svg" width="32" height="32" />
+            <Typography>
+              <a
+                href="https://www.facebook.com/devMasterSomeday/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <b>Facebook page</b>
+              </a>
+              <br />
+              sharing tips & tricks about frontend.
+            </Typography>
+          </Box>
+          <Box>
+            <img src="/static/youtube-logo.svg" width="46" height="32" />
+            <Typography>
+              My own{" "}
+              <a
+                href="https://www.youtube.com/channel/UCe0f9Y5GA-erQ_ZX1IGmV3g"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <b>Youtube channel</b>
+              </a>{" "}
+              <br />
+              in Thai.
             </Typography>
           </Box>
         </Box>
