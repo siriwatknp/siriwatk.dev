@@ -126,7 +126,7 @@ const Glass = styled("div")({
   border: "1px solid",
   borderColor: "rgba(255,255,255,0.4)",
   backgroundColor: "rgba(255,255,255,0.2)",
-  borderRadius: 20,
+  borderRadius: 8,
   backdropFilter: "blur(4px)",
   display: "flex",
   flexDirection: "column",
