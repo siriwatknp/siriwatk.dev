@@ -22,9 +22,13 @@ const calc2 = (x: number, y: number, rect: DOMRect) => [
 const trans = (x: number, y: number) =>
   `perspective(600px) rotateX(${x}deg) rotateY(${y}deg)`;
 
+const useIsomorphicEffect =
+  typeof window === "undefined" ? React.useEffect : React.useLayoutEffect;
+
 function BendingFrame({ children }: { children: React.ReactNode }) {
   const container = React.useRef<HTMLDivElement | null>(null);
   const card = React.useRef<HTMLDivElement | null>(null);
+  const [touching, setTouching] = React.useState(false);
   const [xy, set] = React.useState([0, 0]);
   const [xy2, set2] = React.useState([0, 0]);
   const props = useSpring({
@@ -39,6 +43,19 @@ function BendingFrame({ children }: { children: React.ReactNode }) {
       velocity: 0,
     },
   });
+  useIsomorphicEffect(() => {
+    function preventScrolling(e: TouchEvent) {
+      if (touching) {
+        e.preventDefault();
+      }
+    }
+    document.addEventListener("touchmove", preventScrolling, {
+      passive: false,
+    });
+    return () => {
+      document.removeEventListener("touchmove", preventScrolling);
+    };
+  }, [touching]);
   return (
     <Box
       ref={container}
@@ -60,10 +77,29 @@ function BendingFrame({ children }: { children: React.ReactNode }) {
       <animated.div
         className="BendingFrame"
         ref={card}
-        style={{ transform: props.xy.to(trans) }}
+        style={{
+          transform: props.xy.to(trans),
+          touchAction: touching ? "none" : "auto",
+        }}
         onMouseLeave={() => {
           set([0, 0]);
           set2([0, 0]);
+        }}
+        onTouchStart={() => setTouching(true)}
+        onTouchEnd={() => {
+          setTouching(false);
+          set([0, 0]);
+          set2([0, 0]);
+        }}
+        onTouchMove={(e) => {
+          const clientX = e.touches[0].clientX;
+          const clientY = e.touches[0].clientY;
+          if (container.current && card.current) {
+            const rect = container.current.getBoundingClientRect();
+            const cardRect = card.current.getBoundingClientRect();
+            set(calc(clientX, clientY, rect));
+            set2(calc2(clientX, clientY, cardRect));
+          }
         }}
         onMouseMove={(e) => {
           if (container.current && card.current) {
