@@ -128,7 +128,10 @@ const JssToStyled = () => {
           property="og:description"
           content="A tool for helping developer migrate Material-UI project to version 5 with less afford"
         />
-        <meta property="og:image" content="/static/jss-to-styled.jpeg" />
+        <meta
+          property="og:image"
+          content="https://siriwatk.dev/static/jss-to-styled.jpeg"
+        />
 
         <meta property="twitter:card" content="summary_large_image" />
         <meta
@@ -143,7 +146,10 @@ const JssToStyled = () => {
           property="twitter:description"
           content="A tool for helping developer migrate Material-UI project to version 5 with less afford"
         />
-        <meta property="twitter:image" content="/static/jss-to-styled.jpeg" />
+        <meta
+          property="twitter:image"
+          content="https://siriwatk.dev/static/jss-to-styled.jpeg"
+        />
       </Head>
       <Box>
         <Dialog

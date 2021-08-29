@@ -159,7 +159,10 @@ export default function Home() {
           property="og:description"
           content="Welcome to my personal blog. This is where I share stuff from my discovery & experience."
         />
-        <meta property="og:image" content="/static/social-preview.jpeg" />
+        <meta
+          property="og:image"
+          content="https://siriwatk.dev/static/social-preview.jpeg"
+        />
 
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content="https://siriwatk.dev/" />
@@ -168,7 +171,10 @@ export default function Home() {
           property="twitter:description"
           content="Welcome to my personal blog. This is where I share stuff from my discovery & experience."
         />
-        <meta property="twitter:image" content="/static/social-preview.jpeg" />
+        <meta
+          property="twitter:image"
+          content="https://siriwatk.dev/static/social-preview.jpeg"
+        />
       </Head>
       <GlobalStyles
         styles={{
