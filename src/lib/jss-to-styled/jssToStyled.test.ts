@@ -59,6 +59,35 @@ describe("jssToStyled", () => {
     });
   });
 
+  it("support makeStyles callback function with no theme", () => {
+    expect(
+      jssToStyled({
+        jss: `
+          const useStyles = makeStyles(() => ({
+            iframe: {
+              display: 'block',
+              width: '100%',
+              minHeight: 400,
+              maxHeight: 'calc(100vh - 187px)',
+            },
+          }))
+        `,
+        jsx: `
+        <div>
+          <iframe className={classes.iframe} />
+        </div>
+        `,
+      })
+    ).toMatchObject({
+      styledComponents: `const StyledIframe = styled('iframe')(() => ({
+  display: 'block',
+  width: '100%',
+  minHeight: 400,
+  maxHeight: 'calc(100vh - 187px)',
+}));`,
+    });
+  });
+
   it("support const declaration", () => {
     expect(
       jssToStyled({
@@ -268,6 +297,30 @@ describe("jssToStyled", () => {
         <div>
           <StyledIframe className={clsx('something')} />
         </div>
+        `,
+    });
+  });
+
+  it("can transform styles.", () => {
+    expect(
+      jssToStyled({
+        jss: `
+          ({
+            img: {
+              display: 'block',
+              width: '100%',
+              minHeight: 400,
+              maxHeight: 'calc(100vh - 187px)',
+            },
+          })
+        `,
+        jsx: `
+        <div className={styles.img} />
+        `,
+      })
+    ).toMatchObject({
+      jsx: `
+        <StyledDiv />
         `,
     });
   });
@@ -519,6 +572,155 @@ const StyledDivider = styled(Divider)((
           </React.Fragment>
         `,
         // MuiLink does not transform because there is no `classes.remove` in makeStyles
+      });
+    });
+
+    it("Case II", () => {
+      expect(
+        jssToStyled({
+          jss: `const useStyles = makeStyles(() => ({
+            card: {
+              position: "relative",
+              borderRadius: theme.shape.borderRadius,
+              padding: 12,
+              backgroundColor: "#e5fcfb",
+              minWidth: 300
+            },
+            learnMore: {
+              backgroundColor: "#fff !important",
+              color: "#fb703c",
+              boxShadow: "0 2px 6px #d0efef",
+              borderRadius: 12,
+              minWidth: 120,
+              minHeight: 42,
+              fontFamily: family,
+              textTransform: "initial",
+              fontSize: "0.875rem",
+              fontWeight: 700,
+              letterSpacing: 0
+            },
+            img: {
+              position: "absolute",
+              width: "40%",
+              bottom: 0,
+              right: 0,
+              display: "block"
+            },
+            shell: {
+              position: "absolute",
+              bottom: 0,
+              right: 0,
+              transform: "translate(70%, 50%)",
+              borderRadius: "50%",
+              backgroundColor: "rgba(71, 167, 162, 0.12)",
+              padding: "40%",
+              "&:before": {
+                position: "absolute",
+                borderRadius: "50%",
+                content: '""',
+                display: "block",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                margin: "-16%",
+                backgroundColor: "rgba(71, 167, 162, 0.08)"
+              }
+            }
+          }));
+          `,
+          jsx: `<Card className={styles.card}>
+          <Column gap={2} mr={2}>
+            <Info position={"middle"} useStyles={useOfferInfoStyles}>
+              <InfoTitle>50 Days of Premium!</InfoTitle>
+              <InfoSubtitle>Get it before 01.01.2020</InfoSubtitle>
+            </Info>
+            <Item mt={2}>
+              <Button className={styles.learnMore}>Learn more</Button>
+            </Item>
+          </Column>
+          <img
+            className={styles.img}
+            alt={""}
+            src={
+              "https://pathwaychurch.life/wp-content/uploads/2018/09/bow-transparent-background-1.png"
+            }
+          />
+          <div className={styles.shell} />
+        </Card>;
+        `,
+        })
+      ).toMatchObject({
+        styledComponents: `const StyledCard = styled(Card)(() => ({
+  position: "relative",
+  borderRadius: theme.shape.borderRadius,
+  padding: 12,
+  backgroundColor: "#e5fcfb",
+  minWidth: 300,
+}));
+
+const ButtonLearnMore = styled(Button)(() => ({
+  backgroundColor: "#fff !important",
+  color: "#fb703c",
+  boxShadow: "0 2px 6px #d0efef",
+  borderRadius: 12,
+  minWidth: 120,
+  minHeight: 42,
+  fontFamily: family,
+  textTransform: "initial",
+  fontSize: "0.875rem",
+  fontWeight: 700,
+  letterSpacing: 0,
+}));
+
+const StyledImg = styled('img')(() => ({
+  position: "absolute",
+  width: "40%",
+  bottom: 0,
+  right: 0,
+  display: "block",
+}));
+
+const StyledDiv = styled('div')(() => ({
+  position: "absolute",
+  bottom: 0,
+  right: 0,
+  transform: "translate(70%, 50%)",
+  borderRadius: "50%",
+  backgroundColor: "rgba(71, 167, 162, 0.12)",
+  padding: "40%",
+
+  "&:before": {
+    position: "absolute",
+    borderRadius: "50%",
+    content: '""',
+    display: "block",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    margin: "-16%",
+    backgroundColor: "rgba(71, 167, 162, 0.08)"
+  },
+}));`,
+        jsx: `<StyledCard>
+          <Column gap={2} mr={2}>
+            <Info position={"middle"} useStyles={useOfferInfoStyles}>
+              <InfoTitle>50 Days of Premium!</InfoTitle>
+              <InfoSubtitle>Get it before 01.01.2020</InfoSubtitle>
+            </Info>
+            <Item mt={2}>
+              <ButtonLearnMore>Learn more</ButtonLearnMore>
+            </Item>
+          </Column>
+          <StyledImg
+            alt={""}
+            src={
+              "https://pathwaychurch.life/wp-content/uploads/2018/09/bow-transparent-background-1.png"
+            } />
+          <StyledDiv />
+        </StyledCard>;
+        `,
       });
     });
   });

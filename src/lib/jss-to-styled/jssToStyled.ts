@@ -75,14 +75,14 @@ export function jssToStyled({
                   j.objectExpression([]),
                   true
                 );
-                if (themeParam.type === "Identifier") {
+                if (themeParam?.type === "Identifier") {
                   // (theme) =>
                   const obj = j.objectProperty(themeParam, themeParam);
                   obj.shorthand = true;
                   styleArgs[prop.key.name].params.push(j.objectPattern([obj]));
                 }
 
-                if (themeParam.type === "ObjectPattern") {
+                if (themeParam?.type === "ObjectPattern") {
                   // ({ palette, spacing }) =>
                   styleArgs[prop.key.name].params.push(
                     j.objectPattern([
@@ -176,7 +176,7 @@ export function jssToStyled({
   function isClassKey(member: jscodeshift.MemberExpression, classKey: string) {
     return (
       member.object.type === "Identifier" &&
-      member.object.name === "classes" &&
+      (member.object.name === "classes" || member.object.name === "styles") &&
       member.property.type === "Identifier" &&
       member.property.name === classKey
     );
