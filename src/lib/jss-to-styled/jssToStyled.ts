@@ -6,6 +6,11 @@ export default function capitalize(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+type Style = {
+  key: string;
+  value: jscodeshift.ObjectExpression | jscodeshift.ArrowFunctionExpression;
+};
+
 export function jssToStyled({
   jss,
   jsx,
@@ -32,8 +37,7 @@ export function jssToStyled({
   const jssRoot = j(jss);
   const jsxRoot = j(jsx);
 
-  const styles: Array<{ key: string; value: jscodeshift.ObjectExpression }> =
-    [];
+  const styles: Array<Style> = [];
   let styleArgs; // for function like
 
   /**
@@ -93,12 +97,65 @@ export function jssToStyled({
 
                 styles.push({
                   key: prop.key.name,
-                  value: prop.value,
+                  value: styleArgs[prop.key.name],
                 });
 
                 (
                   styleArgs[prop.key.name].body as jscodeshift.ObjectExpression
                 ).properties = prop.value.properties;
+              }
+
+              if (
+                prop.key.type === "Identifier" &&
+                prop.value.type === "ArrowFunctionExpression"
+              ) {
+                styleArgs[prop.key.name] = prop.value;
+                if (themeParam?.type === "Identifier") {
+                  // (theme) =>
+                  if (!styleArgs[prop.key.name].params.length) {
+                    const obj = j.objectProperty(themeParam, themeParam);
+                    obj.shorthand = true;
+                    styleArgs[prop.key.name].params.push(
+                      j.objectPattern([obj])
+                    );
+                  } else if (
+                    styleArgs[prop.key.name].params[0]?.type === "ObjectPattern"
+                  ) {
+                    const obj = j.property(
+                      "init",
+                      j.identifier("theme"),
+                      j.identifier("theme")
+                    );
+                    obj.shorthand = true;
+                    styleArgs[prop.key.name].params[0].properties = [
+                      obj,
+                      ...styleArgs[prop.key.name].params[0].properties,
+                    ];
+                  }
+                }
+
+                if (themeParam?.type === "ObjectPattern") {
+                  // ({ palette, spacing }) =>
+                  if (!styleArgs[prop.key.name].params.length) {
+                    styleArgs[prop.key.name].params.push(
+                      j.objectPattern([
+                        j.objectProperty(j.identifier("theme"), themeParam),
+                      ])
+                    );
+                  } else if (
+                    styleArgs[prop.key.name].params[0]?.type === "ObjectPattern"
+                  ) {
+                    styleArgs[prop.key.name].params[0].properties = [
+                      ...themeParam.properties,
+                      ...styleArgs[prop.key.name].params[0].properties,
+                    ];
+                  }
+                }
+
+                styles.push({
+                  key: prop.key.name,
+                  value: styleArgs[prop.key.name],
+                });
               }
             }
           });
@@ -127,7 +184,7 @@ export function jssToStyled({
 
   function appendStyledComponent(
     node: jscodeshift.JSXElement,
-    style: { key: string; value: jscodeshift.ObjectExpression },
+    style: Style,
     styleArgs:
       | undefined
       | Record<

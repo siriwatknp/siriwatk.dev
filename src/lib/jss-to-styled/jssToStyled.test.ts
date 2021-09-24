@@ -183,6 +183,71 @@ describe("jssToStyled", () => {
     });
   });
 
+  it("transform function with props callback", () => {
+    expect(
+      jssToStyled({
+        jss: `
+          theme => ({
+            iframe: ({ height }) => ({
+              display: 'block',
+              width: '100%',
+              minHeight: height,
+              maxHeight: 'calc(100vh - 187px)',
+            }),
+          })
+        `,
+        jsx: `
+        <div>
+          <iframe className={clsx('some-class', classes.iframe)} />
+        </div>
+        `,
+      })
+    ).toMatchObject({
+      styledComponents: `const StyledIframe = styled('iframe')(({
+  theme,
+  height,
+}) => ({
+  display: 'block',
+  width: '100%',
+  minHeight: height,
+  maxHeight: 'calc(100vh - 187px)',
+}));`,
+    });
+  });
+
+  it("transform function destructured object with props callback", () => {
+    expect(
+      jssToStyled({
+        jss: `
+          ({ palette, spacing }) => ({
+            iframe: ({ height }) => ({
+              display: 'block',
+              width: '100%',
+              minHeight: height,
+              maxHeight: 'calc(100vh - 187px)',
+            }),
+          })
+        `,
+        jsx: `
+        <div>
+          <iframe className={clsx('some-class', classes.iframe)} />
+        </div>
+        `,
+      })
+    ).toMatchObject({
+      styledComponents: `const StyledIframe = styled('iframe')(({
+  palette,
+  spacing,
+  height,
+}) => ({
+  display: 'block',
+  width: '100%',
+  minHeight: height,
+  maxHeight: 'calc(100vh - 187px)',
+}));`,
+    });
+  });
+
   it("transform function destructured object with html tag", () => {
     expect(
       jssToStyled({
