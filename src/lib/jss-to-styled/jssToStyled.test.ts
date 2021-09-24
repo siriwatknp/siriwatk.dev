@@ -320,7 +320,7 @@ describe("jssToStyled", () => {
       })
     ).toMatchObject({
       jsx: `
-        <StyledDiv />
+        <DivImg />
         `,
     });
   });
@@ -681,7 +681,7 @@ const StyledImg = styled('img')(() => ({
   display: "block",
 }));
 
-const StyledDiv = styled('div')(() => ({
+const DivShell = styled('div')(() => ({
   position: "absolute",
   bottom: 0,
   right: 0,
@@ -718,7 +718,7 @@ const StyledDiv = styled('div')(() => ({
             src={
               "https://pathwaychurch.life/wp-content/uploads/2018/09/bow-transparent-background-1.png"
             } />
-          <StyledDiv />
+          <DivShell />
         </StyledCard>;
         `,
       });

@@ -140,8 +140,16 @@ export function jssToStyled({
       const jsxName = node.openingElement.name.name;
       let styledName;
       if (jsxName && jsxName.match(/^[a-z]/)) {
+        let tagName = jsxName;
+        if (jsxName === "a") {
+          tagName = "anchor";
+        }
         // jsxName is html tag
-        styledName = `Styled${capitalize(jsxName)}`;
+        if (jsxName === style.key) {
+          styledName = `Styled${capitalize(tagName)}`;
+        } else {
+          styledName = `${capitalize(tagName)}${capitalize(style.key)}`;
+        }
         styledResult.program.body.push(
           createStyledComponent(
             styledName,
