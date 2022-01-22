@@ -1,12 +1,12 @@
 import * as React from "react";
 import Head from "next/head";
 import { useSpring, animated } from "@react-spring/web";
-import { useTheme, styled } from "@material-ui/core/styles";
-import GlobalStyles from "@material-ui/core/GlobalStyles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Avatar from "@material-ui/core/Avatar";
-import Box from "@material-ui/core/Box";
-import Typography from "@material-ui/core/Typography";
+import { useTheme, styled } from "@mui/material/styles";
+import GlobalStyles from "@mui/material/GlobalStyles";
+import CssBaseline from "@mui/material/CssBaseline";
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import AppLayout from "layouts/AppLayout";
 import SvgMountain1 from "components/SvgMountain1";
 import SvgMountain2 from "components/SvgMountain2";

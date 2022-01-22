@@ -2,13 +2,16 @@ import * as React from "react";
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { ThemeProvider, StyledEngineProvider } from "@material-ui/core/styles";
+import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
 import createCache from "@emotion/cache";
 
 import * as ga from "lib/analytics/google-analytics";
 import { lightTheme } from "lib/theme";
 
-const cache = createCache({ key: "css" });
+const cache = createCache({
+  key: "css",
+  prepend: true,
+});
 cache.compat = true;
 
 export default function MyApp({ Component, pageProps }: AppProps) {

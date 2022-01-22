@@ -6,37 +6,37 @@ import prettierParserBabel from "prettier/parser-babel";
 import Highlight, { defaultProps } from "prism-react-renderer";
 import prismGithubTheme from "prism-react-renderer/themes/github";
 import useClipboard from "react-use-clipboard";
-import { styled } from "@material-ui/core/styles";
-import Alert from "@material-ui/core/Alert";
-import Box from "@material-ui/core/Box";
-import GlobalStyles from "@material-ui/core/GlobalStyles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import Container from "@material-ui/core/Container";
-import Divider from "@material-ui/core/Divider";
-import Tooltip from "@material-ui/core/Tooltip";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import Link from "@material-ui/core/Link";
-import List from "@material-ui/core/List";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
-import Switch from "@material-ui/core/Switch";
-import Popper from "@material-ui/core/Popper";
-import Fade from "@material-ui/core/Fade";
-import Paper from "@material-ui/core/Paper";
+import { styled } from "@mui/material/styles";
+import Alert from "@mui/material/Alert";
+import Box from "@mui/material/Box";
+import GlobalStyles from "@mui/material/GlobalStyles";
+import CssBaseline from "@mui/material/CssBaseline";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
+import Container from "@mui/material/Container";
+import Divider from "@mui/material/Divider";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import Link from "@mui/material/Link";
+import List from "@mui/material/List";
+import ListSubheader from "@mui/material/ListSubheader";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import Switch from "@mui/material/Switch";
+import Popper from "@mui/material/Popper";
+import Fade from "@mui/material/Fade";
+import Paper from "@mui/material/Paper";
 
-import CheckRounded from "@material-ui/icons/CheckRounded";
-import SettingsRounded from "@material-ui/icons/SettingsRounded";
-import CopyAllRounded from "@material-ui/icons/CopyAllRounded";
-import InfoRounded from "@material-ui/icons/InfoRounded";
-import TextSnippetRounded from "@material-ui/icons/TextSnippetRounded";
+import CheckRounded from "@mui/icons-material/CheckRounded";
+import SettingsRounded from "@mui/icons-material/SettingsRounded";
+import CopyAllRounded from "@mui/icons-material/CopyAllRounded";
+import InfoRounded from "@mui/icons-material/InfoRounded";
+import TextSnippetRounded from "@mui/icons-material/TextSnippetRounded";
 
 import { jssToStyled, EXAMPLE_1, EXAMPLE_2 } from "lib/jss-to-styled";
 import AppLayout from "layouts/AppLayout";
@@ -504,7 +504,7 @@ const JssToStyled = () => {
                           bgcolor: "grey.200",
                         },
                       }}
-                    >
+                      size="large">
                       {isStyledCopied ? <CheckRounded /> : <CopyAllRounded />}
                     </IconButton>
                   </Tooltip>
@@ -554,7 +554,7 @@ const JssToStyled = () => {
                             bgcolor: "grey.200",
                           },
                         }}
-                      >
+                        size="large">
                         {isJsxCopied ? <CheckRounded /> : <CopyAllRounded />}
                       </IconButton>
                     </Tooltip>
