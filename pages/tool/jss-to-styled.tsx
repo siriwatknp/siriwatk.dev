@@ -10,7 +10,6 @@ import { styled } from "@mui/material/styles";
 import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import GlobalStyles from "@mui/material/GlobalStyles";
-import CssBaseline from "@mui/material/CssBaseline";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
@@ -224,7 +223,6 @@ const JssToStyled = () => {
         }
       `}
         />
-        <CssBaseline />
         <Container>
           <Box
             display="flex"
@@ -504,7 +502,8 @@ const JssToStyled = () => {
                           bgcolor: "grey.200",
                         },
                       }}
-                      size="large">
+                      size="large"
+                    >
                       {isStyledCopied ? <CheckRounded /> : <CopyAllRounded />}
                     </IconButton>
                   </Tooltip>
@@ -554,7 +553,8 @@ const JssToStyled = () => {
                             bgcolor: "grey.200",
                           },
                         }}
-                        size="large">
+                        size="large"
+                      >
                         {isJsxCopied ? <CheckRounded /> : <CopyAllRounded />}
                       </IconButton>
                     </Tooltip>
