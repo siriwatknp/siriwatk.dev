@@ -1,4 +1,5 @@
 import * as React from "react";
+import Head from "next/head";
 import Color from "color";
 import Highlight, { defaultProps } from "prism-react-renderer";
 import { HexColorPicker } from "react-colorful";
@@ -315,122 +316,162 @@ export default function ShadowStudio() {
     shadowRef.current[index] = value;
   };
   return (
-    <Container maxWidth="md" sx={{ pb: 6 }}>
-      <GlobalStyles
-        styles={{
-          body: {
-            backgroundColor: bgColor.toString(),
-            transition: "0.3s",
-            "--shadow-channel": shadowChannel,
-            "--primary-color": primaryColor,
-          },
-          ".prism-code": {
-            borderRadius: "8px",
-            fontSize: "0.875rem",
-            padding: "0.75rem 1rem",
-            margin: "initial",
-          },
-          svg: {
-            color: "var(--primary-color)",
-          },
-        }}
-      />
-      <Box
-        sx={{
-          display: "flex",
-          mx: "auto",
-          width: "min-content",
-          justifyContent: "center",
-          gap: 2,
-          px: 1.5,
-          py: 1,
-          my: 2,
-          mb: 8,
-          borderRadius: "40px",
-          bgcolor: "hsl(var(--shadow-channel) / 0.12)",
-        }}
-      >
-        <IconButton
-          id="bgColor-button"
-          aria-controls={Boolean(bgMenuEl) ? "bgColor-menu" : undefined}
-          aria-haspopup="true"
-          aria-expanded={Boolean(bgMenuEl) ? "true" : undefined}
-          aria-label="Background color"
-          onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
-            setBgMenuEl(event.currentTarget);
-          }}
-        >
-          <FormatPaintRounded />
-        </IconButton>
-        <Menu
-          id="bgColor-menu"
-          anchorEl={bgMenuEl}
-          open={Boolean(bgMenuEl)}
-          onClose={() => setBgMenuEl(null)}
-          transformOrigin={{
-            horizontal: "center",
-            vertical: "top",
-          }}
-          anchorOrigin={{
-            horizontal: "center",
-            vertical: "bottom",
-          }}
-          MenuListProps={{
-            // @ts-ignore MUI bug
-            component: "div",
-            sx: { p: 0 },
-            "aria-labelledby": "bgColor-button",
-          }}
-          PaperProps={{
-            sx: {
-              overflow: "visible",
-              bgcolor: "initial",
+    <React.Fragment>
+      <Head>
+        <title>siriwatk — shadow studio</title>
+        <meta name="title" content="siriwatk — shadow studio" />
+        <meta
+          name="description"
+          content="A shadow scale generator for building a design system"
+        />
+
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:url"
+          content="https://siriwatk.dev/tool/shadow-studio"
+        />
+        <meta property="og:title" content="siriwatk — shadow studio" />
+        <meta
+          property="og:description"
+          content="A shadow scale generator for building a design system"
+        />
+        <meta
+          property="og:image"
+          content="https://siriwatk.dev/static/shadow-studio.jpeg"
+        />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta
+          property="twitter:url"
+          content="https://siriwatk.dev/tool/shadow-studio"
+        />
+        <meta property="twitter:title" content="siriwatk — shadow studio" />
+        <meta
+          property="twitter:description"
+          content="A shadow scale generator for building a design system"
+        />
+        <meta
+          property="twitter:image"
+          content="https://siriwatk.dev/static/shadow-studio.jpeg"
+        />
+      </Head>
+      <Container maxWidth="md" sx={{ pb: 6 }}>
+        <GlobalStyles
+          styles={{
+            body: {
+              backgroundColor: bgColor.toString(),
+              transition: "0.3s",
+              "--shadow-channel": shadowChannel,
+              "--primary-color": primaryColor,
+            },
+            ".prism-code": {
               borderRadius: "8px",
+              fontSize: "0.875rem",
+              padding: "0.75rem 1rem",
+              margin: "initial",
+            },
+            svg: {
+              color: "var(--primary-color)",
             },
           }}
+        />
+        <Box
+          sx={{
+            display: "flex",
+            mx: "auto",
+            width: "min-content",
+            justifyContent: "center",
+            gap: 2,
+            px: 1.5,
+            py: 1,
+            my: 2,
+            mb: 8,
+            borderRadius: "40px",
+            bgcolor: "hsl(var(--shadow-channel) / 0.12)",
+          }}
         >
-          <HexColorPicker
-            color={Color(bgColor).hex().toString()}
-            onChange={(value) => setBgColor(Color(value).hsl())}
+          <IconButton
+            id="bgColor-button"
+            aria-controls={Boolean(bgMenuEl) ? "bgColor-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={Boolean(bgMenuEl) ? "true" : undefined}
+            aria-label="Background color"
+            onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
+              setBgMenuEl(event.currentTarget);
+            }}
+          >
+            <FormatPaintRounded />
+          </IconButton>
+          <Menu
+            id="bgColor-menu"
+            anchorEl={bgMenuEl}
+            open={Boolean(bgMenuEl)}
+            onClose={() => setBgMenuEl(null)}
+            transformOrigin={{
+              horizontal: "center",
+              vertical: "top",
+            }}
+            anchorOrigin={{
+              horizontal: "center",
+              vertical: "bottom",
+            }}
+            MenuListProps={{
+              // @ts-ignore MUI bug
+              component: "div",
+              sx: { p: 0 },
+              "aria-labelledby": "bgColor-button",
+            }}
+            PaperProps={{
+              sx: {
+                overflow: "visible",
+                bgcolor: "initial",
+                borderRadius: "8px",
+              },
+            }}
+          >
+            <HexColorPicker
+              color={Color(bgColor).hex().toString()}
+              onChange={(value) => setBgColor(Color(value).hsl())}
+            />
+          </Menu>
+          <GetCode shadows={shadowRef.current} shadowChannel={shadowChannel} />
+        </Box>
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "auto auto 1fr",
+            gridAutoRows: "200px",
+            gap: 2,
+            rowGap: 8,
+          }}
+        >
+          <ShadowCustomizer
+            initialElevation={2}
+            initialLight={2}
+            onChange={saveShadow(0)}
           />
-        </Menu>
-        <GetCode shadows={shadowRef.current} shadowChannel={shadowChannel} />
-      </Box>
-      <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: "auto auto 1fr",
-          gridAutoRows: "200px",
-          gap: 2,
-          rowGap: 8,
-        }}
-      >
-        <ShadowCustomizer
-          initialElevation={2}
-          initialLight={2}
-          onChange={saveShadow(0)}
-        />
-        <ShadowCustomizer
-          initialElevation={6}
-          initialLight={3}
-          onChange={saveShadow(1)}
-        />
-        <ShadowCustomizer
-          initialElevation={12}
-          initialLight={3}
-          onChange={saveShadow(2)}
-        />
-        <ShadowCustomizer
-          initialElevation={24}
-          initialLight={4}
-          onChange={saveShadow(3)}
-        />
-        <ShadowCustomizer
-          initialElevation={40}
-          initialLight={5}
-          onChange={saveShadow(4)}
-        />
-      </Box>
-    </Container>
+          <ShadowCustomizer
+            initialElevation={6}
+            initialLight={3}
+            onChange={saveShadow(1)}
+          />
+          <ShadowCustomizer
+            initialElevation={12}
+            initialLight={3}
+            onChange={saveShadow(2)}
+          />
+          <ShadowCustomizer
+            initialElevation={24}
+            initialLight={4}
+            onChange={saveShadow(3)}
+          />
+          <ShadowCustomizer
+            initialElevation={40}
+            initialLight={5}
+            onChange={saveShadow(4)}
+          />
+        </Box>
+      </Container>
+    </React.Fragment>
   );
 }
