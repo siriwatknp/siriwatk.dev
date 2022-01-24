@@ -90,7 +90,7 @@ const ShadowCustomizer = ({
   }, [shadow]);
   return (
     <React.Fragment>
-      <Box sx={{ py: 4, px: 4, alignSelf: "center" }}>
+      <Box sx={{ py: 4, px: { xs: 2, md: 4 }, alignSelf: "center" }}>
         <Box
           sx={{
             width: 200,
@@ -98,10 +98,19 @@ const ShadowCustomizer = ({
             bgcolor: "#fff",
             borderRadius: "8px",
             boxShadow: shadow,
+            ml: "auto",
           }}
         />
       </Box>
-      <Box sx={{ py: 2, px: 5, display: "flex", gap: 4 }}>
+      <Box
+        sx={{
+          py: 2,
+          pl: { xs: 2, sm: 5 },
+          pr: { md: 5 },
+          display: "flex",
+          gap: 4,
+        }}
+      >
         <Box
           sx={{
             display: "flex",
@@ -145,7 +154,21 @@ const ShadowCustomizer = ({
           <Typography variant="body2">{light}</Typography>
         </Box>
       </Box>
-      <Box sx={{ alignSelf: "center", position: "relative" }}>
+      <Box
+        sx={{
+          maxWidth: "100%",
+          mr: 1,
+          gridColumn: { xs: "span 2", md: "span 1" },
+          justifySelf: "center",
+          alignSelf: {
+            md: "center",
+          },
+          position: "relative",
+          "& .prism-code": {
+            overflow: "auto",
+          },
+        }}
+      >
         <CodeHighlight code={shadow} />
         <Tooltip title={copied ? "Copied" : "Copy shadow"}>
           <IconButton
@@ -439,10 +462,16 @@ export default function ShadowStudio() {
         <Box
           sx={{
             display: "grid",
-            gridTemplateColumns: "auto auto 1fr",
-            gridAutoRows: "200px",
-            gap: 2,
-            rowGap: 8,
+            gridTemplateColumns: {
+              xs: "1fr 1fr",
+              md: "auto auto 1fr",
+            },
+            gridAutoRows: {
+              xs: "160px",
+              md: "200px",
+            },
+            columnGap: { xs: 0, md: 2 },
+            rowGap: { xs: 0, md: 8 },
           }}
         >
           <ShadowCustomizer
