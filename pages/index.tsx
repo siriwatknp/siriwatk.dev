@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import AppLayout from "layouts/AppLayout";
 import SvgMountain1 from "components/SvgMountain1";
 import SvgMountain2 from "components/SvgMountain2";
+import Webring from "components/Webring";
 
 const calc = (x: number, y: number, rect: DOMRect) => [
   -(y - rect.top - rect.height / 2) / 20,
@@ -188,6 +189,7 @@ export default function Home() {
         }}
       />
       <CssBaseline />
+      <Webring />
       <Box
         height="100vh"
         flexDirection="column"
