@@ -407,11 +407,11 @@ export default function Home() {
             <Typography>
               Software Engineer at <br />{" "}
               <a
-                href="https://material-ui.com/"
+                href="https://mui.com/about/"
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                <b>Material-UI</b>
+                <b>MUI</b>
               </a>
             </Typography>
           </Box>
