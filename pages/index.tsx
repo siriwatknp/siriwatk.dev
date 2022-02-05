@@ -432,7 +432,7 @@ export default function Home() {
             <img src="/static/react-logo.svg" width="36" height="32" />
             <Typography>
               <a
-                href="https://github.com/React-in-Thai/react-foundation"
+                href="https://github.com/React-in-Thai/learn-react-foundation/blob/main/README.md"
                 rel="noopener noreferrer"
                 target="_blank"
               >
